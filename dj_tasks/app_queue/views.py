@@ -11,7 +11,7 @@ from rest_framework.permissions     import AllowAny, IsAuthenticated
 
 from . import forms
 from app_queue.Qmessenger import Qmessenger
-
+from app_queue.GCS        import GCS
 
 # Create your views here.
 
@@ -56,10 +56,15 @@ class Handler_animal( APIView ):
 
     def post(self, request, *args, **kwargs):
         print( 'app_queue.views.Handler_animal.post() ... begin' )
+        GCS.upload_blob_from_string( 'aat_bk', 'app_queue.views.Handler_animal.post() was loaded :)', 'handler_animal.txt' )
+
+
         print( 'payload: ' )
         payload = request.data
         s = json.dumps( payload, indent = 4 )
         print( s )
+        GCS.upload_blob_from_string( 'aat_bk', s, 'handler_animal_data.txt' )
+
         print( 'app_queue.views.Handler_animal.post() ... end' )
         return Response( data = payload )
 
