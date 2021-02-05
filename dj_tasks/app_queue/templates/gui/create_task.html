@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  Create task in queue
+{% endblock %}
+
+{% block content %}
+<div >
+
+    <table>
+        <tr>
+            <td>
+                <form method="post" >
+                    <table>
+                        {{form.as_table}}
+                        {% csrf_token %}
+                    </table>
+                    <br/>
+                    <input type="submit" name="" value="Submit">
+                </form>
+            </td>
+
+        </tr>
+    </table>
+
+    <br>
+    <hr>
+
+    <table>
+        <tr><h2> {{task_name}}</h2></tr><br>
+    </table>
+
+</div>
+{% endblock %}
