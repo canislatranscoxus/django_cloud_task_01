@@ -26,7 +26,7 @@ SECRET_KEY = '-ovw!1dupmo(l(z)2x$32e6_vzm0cha4$b2@bohd@-+e2l-8v0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ '*' ]
 
 
 # Application definition
