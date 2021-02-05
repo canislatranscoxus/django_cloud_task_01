@@ -13,6 +13,8 @@ Later cloud tasks is going to call a handler in our django app
 called Handler_animal. This class will read the payload and make a simple process
 print to console.
 
+## search
+cloud tasks app_engine_http_request view FULL python
 
 ## references
 create task
@@ -23,6 +25,9 @@ projects.locations.queues.tasks.list
 
 GCP cloud tasks with Django
 * https://rimvydas.com/publications/gcp_django_tasks/
+
+python-docs-samples
+* https://github.com/GoogleCloudPlatform/python-docs-samples/blob/master/appengine/flexible/tasks/create_app_engine_queue_task.py
 
 Averikitsch / python-docs-samples 
 * https://github.com/averikitsch/python-docs-samples/tree/flask-task/tasks

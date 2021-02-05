@@ -7,13 +7,12 @@ that message says add a new task to the queue.
 from __future__             import print_function
 from django.conf            import settings
 
-#from google.cloud import tasks_v2
-from google.cloud           import tasks_v2beta3
 from google.cloud           import tasks
+from google.cloud           import tasks_v2
 
-from googleapiclient        import discovery
-from oauth2client.client    import GoogleCredentials
-
+#from google.cloud           import tasks_v2beta3
+#from googleapiclient        import discovery
+#from oauth2client.client    import GoogleCredentials
 
 import datetime
 import json
@@ -39,15 +38,15 @@ class Qmessenger:
         # Construct the request body.
 
         task = {
-            #'view'        : tasks.Task.View.FULL ,
+            'view'          : tasks.Task.View.FULL ,
             #'response_view' : tasks.Task.View.FULL ,
 
-            'http_request': {},
+            'http_request'  : {},
 
             'app_engine_http_request': {  
                 #'http_method'  : 'POST',
-                #'http_method'  : tasks_v2.HttpMethod.POST,
-                'http_method'  : tasks_v2beta3.HttpMethod.POST,
+                'http_method'  : tasks_v2.HttpMethod.POST,
+                #'http_method'  : tasks_v2beta3.HttpMethod.POST,
                 'relative_uri' : relative_uri,
                 'body'         : ''
             }
@@ -65,26 +64,26 @@ class Qmessenger:
             converted_payload = spayload.encode()
 
             # Add the payload to the request.
-            #task['app_engine_http_request'][ 'body' ] = converted_payload
-            task['app_engine_http_request'][ 'body' ] = spayload
+            task['app_engine_http_request'][ 'body' ] = converted_payload
+            #task['app_engine_http_request'][ 'body' ] = spayload
 
 
-        create_task_request_body = {
+        '''create_task_request_body = {
             'task'          : task,
             'responseView'  : tasks.Task.View.FULL  
             #self.service.projects().locations().queues().tasks().View().FULL
         }
-
         request  = self.service.projects().locations().queues().tasks().create(
                     parent = self.parent, 
                     body=create_task_request_body )
-        response = request.execute()
-
+        response = request.execute()'''
 
         # Use the client to build and send the task.
         response = self.client.create_task( parent = self.parent, task=task )
 
-        print('Created task {}'.format( response.name ))
+        print('Created task: {}'.format( response.name ))
+        print( 'short name: {}'.format( response.name.split( '/' )[-1]  ) )
+        print('task view: {}'.format( response.view ))
         
 
 
@@ -135,15 +134,15 @@ class Qmessenger:
 
     def __init__(self ):
 
-        credentials = GoogleCredentials.get_application_default()
-        self.service = discovery.build('cloudtasks', 'v2beta3', credentials=credentials)
+        #credentials = GoogleCredentials.get_application_default()
+        #self.service = discovery.build('cloudtasks', 'v2beta3', credentials=credentials)
 
         #service     = discovery.build('cloudtasks', 'v2beta3', credentials=credentials)
         #service.projects().locations().queues().tasks().create(  )
 
         # Create a client.
-        #client = tasks_v2.CloudTasksClient()
-        client = tasks_v2beta3.CloudTasksClient(  )
+        client = tasks_v2.CloudTasksClient()
+        #client = tasks_v2beta3.CloudTasksClient(  )
 
         # TODO(developer): Uncomment these lines and replace with your values.
         project  = settings.PROJECT
