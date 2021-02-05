@@ -4,13 +4,16 @@ from this app to the queue,
 that message says add a new task to the queue.
 '''
 
-from __future__ import print_function
-from django.conf    import settings
+from __future__             import print_function
+from django.conf            import settings
 
 #from google.cloud import tasks_v2
-from google.cloud import tasks_v2beta3
+from google.cloud           import tasks_v2beta3
+from google.cloud           import tasks
 
-from google.cloud import tasks
+from googleapiclient        import discovery
+from oauth2client.client    import GoogleCredentials
+
 
 import datetime
 import json
@@ -18,12 +21,13 @@ import json
 
 class Qmessenger:
 
-    client = None
-    parent = None
+    client  = None
+    parent  = None
+    service = None
 
     def add_gae( self, payload ):
         '''params is a dictionary '''
-        relative_uri = '/app_queue/handler_animals/'
+        relative_uri = '/app_queue/handler_animals'
         
         if 'url' in payload:
             relative_uri = payload[ 'url' ]
@@ -35,7 +39,7 @@ class Qmessenger:
         # Construct the request body.
 
         task = {
-            'view'        : tasks.Task.View.FULL ,
+            #'view'        : tasks.Task.View.FULL ,
             #'response_view' : tasks.Task.View.FULL ,
 
             'http_request': {},
@@ -52,16 +56,30 @@ class Qmessenger:
         if payload is not None:
             if isinstance(payload, dict):
                 # Convert dict to JSON string
-                payload = json.dumps(payload)
+                spayload = json.dumps(payload)
                 
                 # specify http content-type to application/json
                 task[ 'http_request' ][ 'headers' ] = { 'Content-type': 'application/json' }
 
             # The API expects a payload of type bytes.
-            converted_payload = payload.encode()
+            converted_payload = spayload.encode()
 
             # Add the payload to the request.
-            task['app_engine_http_request'][ 'body' ] = converted_payload
+            #task['app_engine_http_request'][ 'body' ] = converted_payload
+            task['app_engine_http_request'][ 'body' ] = spayload
+
+
+        create_task_request_body = {
+            'task'          : task,
+            'responseView'  : tasks.Task.View.FULL  
+            #self.service.projects().locations().queues().tasks().View().FULL
+        }
+
+        request  = self.service.projects().locations().queues().tasks().create(
+                    parent = self.parent, 
+                    body=create_task_request_body )
+        response = request.execute()
+
 
         # Use the client to build and send the task.
         response = self.client.create_task( parent = self.parent, task=task )
@@ -113,11 +131,19 @@ class Qmessenger:
             #self.add_http( params )
         except Exception as e:
             print( 'Qmessenger.add(), error: {}'.format( e ) )
+            raise
 
     def __init__(self ):
+
+        credentials = GoogleCredentials.get_application_default()
+        self.service = discovery.build('cloudtasks', 'v2beta3', credentials=credentials)
+
+        #service     = discovery.build('cloudtasks', 'v2beta3', credentials=credentials)
+        #service.projects().locations().queues().tasks().create(  )
+
         # Create a client.
         #client = tasks_v2.CloudTasksClient()
-        client = tasks_v2beta3.CloudTasksClient(   )
+        client = tasks_v2beta3.CloudTasksClient(  )
 
         # TODO(developer): Uncomment these lines and replace with your values.
         project  = settings.PROJECT

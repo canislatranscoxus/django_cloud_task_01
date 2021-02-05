@@ -88,6 +88,3 @@ def get_queue_list( request ):
     
     return render( request, 'gui/get_queue_list.html', { 'task_list': task_list } )
 
-def get_my_list( request ):
-    # we show the tasks we have created and added to the queue
-    pass    
