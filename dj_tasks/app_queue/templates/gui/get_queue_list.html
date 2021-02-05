@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Get list of task in the queue
+{% endblock %}
+
+{% block content %}
+
+<h1> List of task in my queue, from Cloud Task. </h1>
+<br><br><br>
+
+<table >
+ 
+{% for task_name in task_list %}
+
+  <tr>
+    <td>{{task_name}}</td>
+  </tr>
+
+{% endfor %}
+</table>
+
+<br><br>
+<a href="/" > Go home </a>
+
+
+{% endblock %}

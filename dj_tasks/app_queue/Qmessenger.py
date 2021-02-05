@@ -36,7 +36,7 @@ class Qmessenger:
 
         task = {
             'view'        : tasks.Task.View.FULL ,
-            'response_view' : tasks.Task.View.FULL ,
+            #'response_view' : tasks.Task.View.FULL ,
 
             'http_request': {},
 
@@ -64,11 +64,10 @@ class Qmessenger:
             task['app_engine_http_request'][ 'body' ] = converted_payload
 
         # Use the client to build and send the task.
-        response = self.client.create_task( parent = self.parent
-                    , task=task )
+        response = self.client.create_task( parent = self.parent, task=task )
 
         print('Created task {}'.format( response.name ))
-        return response
+        
 
 
 
@@ -131,3 +130,4 @@ class Qmessenger:
 
         self.client = client
         
+        print( 'Qmessenger._init_ created  😊k.' )

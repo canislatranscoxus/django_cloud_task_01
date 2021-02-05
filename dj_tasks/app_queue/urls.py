@@ -9,7 +9,7 @@ urlpatterns = [
 
     path( 'handler_animal/', views.Handler_animal.as_view(), name= 'handler_animal'    ),
 
-    #path( 'get_queue_list/'   , views.get_queue_list    , name= 'get_queue_list'      ),
+    path( 'get_queue_list/'   , views.get_queue_list    , name= 'get_queue_list'      ),
     #path( 'get_my_list/'   , views.get_my_list    , name= 'get_my_list'      ),
 
 ]
