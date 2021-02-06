@@ -55,17 +55,23 @@ class Handler_animal( APIView ):
     permission_classes      = ( AllowAny,)
 
     def post(self, request, *args, **kwargs):
-        print( 'app_queue.views.Handler_animal.post() ... begin' )
-        GCS.upload_blob_from_string( 'aat_bk', 'app_queue.views.Handler_animal.post() was loaded :)', 'handler_animal.txt' )
+        payload = 'handler_animal begin'
+        try:
+
+            print( 'app_queue.views.Handler_animal.post() ... begin' )
+            GCS.upload_blob_from_string( 'aat_bk', 'Handler_animal loaded', 'handler_animal.txt' )
 
 
-        print( 'payload: ' )
-        payload = request.data
-        s = json.dumps( payload, indent = 4 )
-        print( s )
-        GCS.upload_blob_from_string( 'aat_bk', s, 'handler_animal_data.txt' )
+            print( 'payload: ' )
+            payload = request.data
+            s = json.dumps( payload, indent = 4 )
+            print( s )
+            GCS.upload_blob_from_string( 'aat_bk', s, 'handler_animal_data.txt' )
 
-        print( 'app_queue.views.Handler_animal.post() ... end' )
+            print( 'app_queue.views.Handler_animal.post() ... end' )
+        except Exception as e:
+            print( 'Handler_animal.post(), error: {}'.format( e ) )
+            
         return Response( data = payload )
 
 
