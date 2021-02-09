@@ -3,6 +3,9 @@ runtime: python39
 
 env_variables:
 #  add the environment variables HERE
+  PROJECT :
+  LOCATION :
+  QUEUE_NAME :
 
 
 handlers:
