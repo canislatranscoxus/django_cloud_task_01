@@ -86,7 +86,7 @@ class Handler_animal( APIView ):
                 print( 'decoding payload from bytes to json' )
                 payload = request.body.decode('utf8').replace("'", '"')
                 print( 'type( payload ): {}'.format( type( payload ) ) )
-                j = json.dump( payload )
+                j = json.loads( payload )
                 print( 'animal: {}'.format( j[ 'animal' ] ) )
 
                 txt = json.dumps( j, indent= 4 )
