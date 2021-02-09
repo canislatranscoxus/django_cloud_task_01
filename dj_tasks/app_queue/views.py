@@ -3,7 +3,9 @@ from pprint                         import pprint
 from googleapiclient                import discovery
 from oauth2client.client            import GoogleCredentials
 
-from django.shortcuts import render, redirect
+from django.shortcuts               import render, redirect
+from django.conf                    import settings
+
 from rest_framework.views           import APIView
 from rest_framework.response        import Response
 from rest_framework.authentication  import BasicAuthentication
@@ -53,20 +55,21 @@ def task_sent_ok( request ):
 class Handler_animal( APIView ):
     authentication_classes  = ( BasicAuthentication, )
     permission_classes      = ( AllowAny,)
+    bucket_name = settings.BUCKET_NAME
 
     def post(self, request, *args, **kwargs):
         payload = 'handler_animal begin'
         try:
 
             print( 'app_queue.views.Handler_animal.post() ... begin' )
-            GCS.upload_blob_from_string( 'aat_bk', 'Handler_animal loaded', 'handler_animal.txt' )
+            GCS.upload_blob_from_string( bucket_name, 'Handler_animal loaded', 'handler_animal.txt' )
 
 
             print( 'payload: ' )
             payload = request.data
             s = json.dumps( payload, indent = 4 )
             print( s )
-            GCS.upload_blob_from_string( 'aat_bk', s, 'handler_animal_data.txt' )
+            GCS.upload_blob_from_string( bucket_name, s, 'handler_animal_data.txt' )
 
             print( 'app_queue.views.Handler_animal.post() ... end' )
         except Exception as e:

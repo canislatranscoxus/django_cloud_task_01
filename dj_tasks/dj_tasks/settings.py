@@ -124,12 +124,13 @@ USE_TZ = True
 #STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
 STATICFILES_DIRS  = [ os.path.join( BASE_DIR, 'static' ) ]
-# ------------------------------------------------------------------------------------------------
 
-
-QUEUE_NAME      = os.environ[ 'QUEUE_NAME'      ]
 # ------------------------------------------------------------------------------------------------
 # GCP
 
-PROJECT  = os.environ[ 'PROJECT'  ]
-LOCATION = os.environ[ 'LOCATION' ] 
+PROJECT     = os.environ[ 'PROJECT'     ]
+LOCATION    = os.environ[ 'LOCATION'    ] 
+QUEUE_NAME  = os.environ[ 'QUEUE_NAME'  ]
+BUCKET_NAME = os.environ[ 'BUCKET_NAME' ]
+
+# ------------------------------------------------------------------------------------------------

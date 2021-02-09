@@ -3,10 +3,10 @@ runtime: python39
 
 env_variables:
 #  add the environment variables HERE
-  PROJECT :
-  LOCATION :
-  QUEUE_NAME :
-
+  PROJECT : "#TODO my-project-HERE"
+  LOCATION : "#TODO my-location-HERE"
+  QUEUE_NAME : "#TODO my-queue-name-HERE"
+  BUCKET_NAME: "#TODO my-bucket-name-HERE"
 
 handlers:
 # This configures Google App Engine to serve the files in the app's static
