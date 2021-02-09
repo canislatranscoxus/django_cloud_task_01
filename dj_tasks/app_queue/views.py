@@ -72,12 +72,13 @@ class Handler_animal( APIView ):
             print( 'app_queue.views.Handler_animal.post() ... begin' )
             GCS.upload_blob_from_string( self.bucket_name, 'Handler_animal loaded', 'handler_animal.txt' )
 
+            print( 'getting body' )
+            b = request.body
+            print( 'type(b) is: {}'.format( type(b) ) )
 
             print( 'getting payload ' )
-            if 'data' not in request:
-                print( 'payload is lost' )
-
             payload = request.data
+
             print( 'type ( payload ): {}'.format( type( payload ) ) )
 
             if isinstance(payload, dict):
