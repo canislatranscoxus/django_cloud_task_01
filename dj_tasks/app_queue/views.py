@@ -36,15 +36,11 @@ def create_task( request ):
     if request.method=='POST':
         form = forms.AnimalForm( request.POST )
         if form.is_valid():
-            '''
             payload = {
                         'animal' : form.cleaned_data[ 'animal'  ],
                         'name'   : form.cleaned_data[ 'name'    ],
                         'age'    : form.cleaned_data[ 'age'     ]
                       }            
-            '''
-            #todo: delete here. Hardcoded for debug.
-            payload = "dogs cats and birds"
 
             qmessenger = Qmessenger()
             qmessenger.add( payload )
@@ -78,16 +74,28 @@ class Handler_animal( APIView ):
             print( 'body: {}'.format( b ) )
 
             print( 'getting payload ' )
-            payload = request.data
+            payload = request.body
 
             print( 'type ( payload ): {}'.format( type( payload ) ) )
 
             if isinstance(payload, dict):
-                print( 'dumping payload to string' )
+                print( 'dumping dict payload to string' )
                 s = json.dumps( payload, indent = 4 )
                 print( s )
-                
+            else:
+                print( 'decoding payload from bytes to json' )
+                payload = request.body.decode('utf8').replace("'", '"')
+                print( 'type( payload ): {}'.format( type( payload ) ) )
+                j = payload
 
+                txt = json.dumps( j, indent= 4 )
+                print( 'json payload' )
+                print( txt )
+                
+                print( 'decoding from bytes to string' )
+                s = request.body.decode('utf8')
+                print( 'type(s): {}'.format( type(s) ) )
+                print( 's: {}'.format( s ) )
             
 
             GCS.upload_blob_from_string( self.bucket_name, s, 'handler_animal_data.txt' )
