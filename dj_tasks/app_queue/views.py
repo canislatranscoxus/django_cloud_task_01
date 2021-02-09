@@ -81,6 +81,20 @@ class Handler_animal( APIView ):
 
 
 
+def h2( request ):
+    try:
+        print( 'app_queue.views.h2(), ... begin' )
+        if request.method == 'POST':
+            print( 'request method is POST' )
+
+        print( 'type( data ): {}'.format(  type(request.data) ) )
+        print( 'data        : {}'.format(  request.data  ) )
+    except Exception as e:
+        print( 'app_queue.views.h2(), error: {}'.format( e ) )
+
+    print( 'app_queue.views.h2(), ... end' )
+
+
 def get_queue_list( request ):
     # we get the task that are in the queue
     qmessenger  = Qmessenger()
