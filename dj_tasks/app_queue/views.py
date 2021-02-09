@@ -75,6 +75,7 @@ class Handler_animal( APIView ):
             print( 'getting body' )
             b = request.body
             print( 'type(b) is: {}'.format( type(b) ) )
+            print( 'body: {}'.format( b ) )
 
             print( 'getting payload ' )
             payload = request.data
