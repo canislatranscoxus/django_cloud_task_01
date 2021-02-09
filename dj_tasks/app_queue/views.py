@@ -76,7 +76,6 @@ class Handler_animal( APIView ):
 
 
 
-
 def get_queue_list( request ):
     # we get the task that are in the queue
     qmessenger  = Qmessenger()

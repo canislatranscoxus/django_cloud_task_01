@@ -60,7 +60,7 @@ class GCS:
         
         except Exception as e:
             print( 'error uploading {}/{}, src_string: {}'.format( bucket_name, tar_blob_name , src_string ) )
-            rise
+
 
     '''
     # test
