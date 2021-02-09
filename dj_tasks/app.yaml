@@ -3,9 +3,9 @@ runtime: python39
 
 env_variables:
 #  add the environment variables HERE
-  PROJECT : "#TODO my-project-HERE"
-  LOCATION : "#TODO my-location-HERE"
-  QUEUE_NAME : "#TODO my-queue-name-HERE"
+  PROJECT: "#TODO my-project-HERE"
+  LOCATION: "#TODO my-location-HERE"
+  QUEUE_NAME: "#TODO my-queue-name-HERE"
   BUCKET_NAME: "#TODO my-bucket-name-HERE"
 
 handlers:
