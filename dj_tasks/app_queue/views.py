@@ -62,16 +62,16 @@ class Handler_animal( APIView ):
     def post(self, request, *args, **kwargs):
         payload = 'handler_animal begin'
         try:
-
+            
             print( 'app_queue.views.Handler_animal.post() ... begin' )
-            GCS.upload_blob_from_string( bucket_name, 'Handler_animal loaded', 'handler_animal.txt' )
+            GCS.upload_blob_from_string( self.bucket_name, 'Handler_animal loaded', 'handler_animal.txt' )
 
 
             print( 'payload: ' )
             payload = request.data
             s = json.dumps( payload, indent = 4 )
             print( s )
-            GCS.upload_blob_from_string( bucket_name, s, 'handler_animal_data.txt' )
+            GCS.upload_blob_from_string( self.bucket_name, s, 'handler_animal_data.txt' )
 
             print( 'app_queue.views.Handler_animal.post() ... end' )
         except Exception as e:
