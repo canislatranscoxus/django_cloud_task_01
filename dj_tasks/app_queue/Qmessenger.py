@@ -26,8 +26,12 @@ class Qmessenger:
 
     def add_gae( self, payload ):
         '''params is a dictionary '''
+
+        print( 'Qmessenger.add_gae(), ... begin' )
+        print( 'payload type: '.format( type( payload ) ) )
+        print( 'payload : {}'.format( json.dumps( payload, indent= 4 ) ) )
+
         relative_uri = '/handler_animal/'
-        
         if 'url' in payload:
             relative_uri = payload[ 'url' ]
 
