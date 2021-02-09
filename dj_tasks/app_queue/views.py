@@ -76,7 +76,7 @@ class Handler_animal( APIView ):
             print( 'getting payload ' )
             payload = request.body
 
-            print( 'type ( payload ): {}'.format( type( payload ) ) )
+            print( 'type ( body ): {}'.format( type( payload ) ) )
 
             if isinstance(payload, dict):
                 print( 'dumping dict payload to string' )
@@ -86,7 +86,8 @@ class Handler_animal( APIView ):
                 print( 'decoding payload from bytes to json' )
                 payload = request.body.decode('utf8').replace("'", '"')
                 print( 'type( payload ): {}'.format( type( payload ) ) )
-                j = payload
+                j = json.dump( payload )
+                print( 'animal: {}'.format( j[ 'animal' ] ) )
 
                 txt = json.dumps( j, indent= 4 )
                 print( 'json payload' )
