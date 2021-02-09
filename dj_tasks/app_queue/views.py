@@ -6,6 +6,7 @@ from oauth2client.client            import GoogleCredentials
 from django.shortcuts               import render, redirect
 from django.conf                    import settings
 
+from rest_framework.parsers         import JSONParser
 from rest_framework.views           import APIView
 from rest_framework.response        import Response
 from rest_framework.authentication  import BasicAuthentication
@@ -55,7 +56,8 @@ def task_sent_ok( request ):
 class Handler_animal( APIView ):
     authentication_classes  = ( BasicAuthentication, )
     permission_classes      = ( AllowAny,)
-    bucket_name = settings.BUCKET_NAME
+    parser_classes          = [JSONParser]
+    bucket_name             = settings.BUCKET_NAME
 
     def post(self, request, *args, **kwargs):
         payload = 'handler_animal begin'
