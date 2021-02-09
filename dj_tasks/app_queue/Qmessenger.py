@@ -7,7 +7,7 @@ that message says add a new task to the queue.
 from __future__             import print_function
 from django.conf            import settings
 
-from google.cloud           import tasks
+#from google.cloud           import tasks
 from google.cloud           import tasks_v2
 
 #from google.cloud           import tasks_v2beta3
@@ -33,54 +33,36 @@ class Qmessenger:
 
         print( 'Qmessenger.add_gae()....' )
 
-        #task_name = '{order_id}_{doc_type}'.format( **params )
-
         # Construct the request body.
 
         task = {
-            'view'          : tasks.Task.View.FULL ,
+            #'view'          : tasks.Task.View.FULL ,
             #'response_view' : tasks.Task.View.FULL ,
 
             'http_request'  : {},
 
             'app_engine_http_request': {  
-                #'http_method'  : 'POST',
                 'http_method'  : tasks_v2.HttpMethod.POST,
-                #'http_method'  : tasks_v2beta3.HttpMethod.POST,
                 'relative_uri' : relative_uri,
                 'body'         : ''
             }
         }
 
+
         if payload is not None:
             if isinstance(payload, dict):
                 # Convert dict to JSON string
-                spayload = json.dumps(payload)
-                
+                payload = json.dumps(payload)
                 # specify http content-type to application/json
-                task[ 'http_request' ][ 'headers' ] = { 'Content-type': 'application/json' }
-
+                task["http_request"]["headers"] = {"Content-type": "application/json"}
             # The API expects a payload of type bytes.
-            converted_payload = spayload.encode()
+            converted_payload = payload.encode()
 
             # Add the payload to the request.
-            task['app_engine_http_request'][ 'body' ] = converted_payload
-            #task['app_engine_http_request'][ 'body' ] = spayload
-
-
-        '''create_task_request_body = {
-            'task'          : task,
-            'responseView'  : tasks.Task.View.FULL  
-            #self.service.projects().locations().queues().tasks().View().FULL
-        }
-        request  = self.service.projects().locations().queues().tasks().create(
-                    parent = self.parent, 
-                    body=create_task_request_body )
-        response = request.execute()'''
+            task['app_engine_http_request']['body'] = converted_payload
 
         # Use the client to build and send the task.
         response = self.client.create_task( parent = self.parent, task=task )
-
         print('Created task: {}'.format( response.name ))
         print( 'short name: {}'.format( response.name.split( '/' )[-1]  ) )
         print('task view: {}'.format( response.view ))
