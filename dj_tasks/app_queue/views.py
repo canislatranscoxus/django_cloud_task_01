@@ -16,6 +16,8 @@ from . import forms
 from app_queue.Qmessenger import Qmessenger
 from app_queue.GCS        import GCS
 
+
+
 # Create your views here.
 
 def home( request ):
@@ -34,11 +36,15 @@ def create_task( request ):
     if request.method=='POST':
         form = forms.AnimalForm( request.POST )
         if form.is_valid():
+            '''
             payload = {
                         'animal' : form.cleaned_data[ 'animal'  ],
                         'name'   : form.cleaned_data[ 'name'    ],
                         'age'    : form.cleaned_data[ 'age'     ]
                       }            
+            '''
+            #todo: delete here. Hardcoded for debug.
+            payload = "dogs cats and birds"
 
             qmessenger = Qmessenger()
             qmessenger.add( payload )
@@ -67,10 +73,21 @@ class Handler_animal( APIView ):
             GCS.upload_blob_from_string( self.bucket_name, 'Handler_animal loaded', 'handler_animal.txt' )
 
 
-            print( 'payload: ' )
+            print( 'getting payload ' )
+            if 'data' not in request:
+                print( 'payload is lost' )
+
             payload = request.data
-            s = json.dumps( payload, indent = 4 )
-            print( s )
+            print( 'type ( payload ): {}'.format( type( payload ) ) )
+
+            if isinstance(payload, dict):
+                print( 'dumping payload to string' )
+                s = json.dumps( payload, indent = 4 )
+                print( s )
+                
+
+            
+
             GCS.upload_blob_from_string( self.bucket_name, s, 'handler_animal_data.txt' )
 
             print( 'app_queue.views.Handler_animal.post() ... end' )

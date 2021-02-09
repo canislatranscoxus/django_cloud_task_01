@@ -8,9 +8,9 @@ urlpatterns = [
     path( 'task_sent_ok/'  , views.task_sent_ok             , name= 'task_sent_ok'   ),
     
     
-    #path( 'handler_animal/', views.Handler_animal.as_view() , name= 'handler_animal' ),
+    path( 'handler_animal/', views.Handler_animal.as_view() , name= 'handler_animal' ),
     #todo: h2 just for debug
-    path( 'handler_animal/', views.h2 , name= 'handler_animal' ),
+    #path( 'handler_animal/', views.h2 , name= 'handler_animal' ),
 
     path( 'get_queue_list/', views.get_queue_list           , name= 'get_queue_list' ),
     #path( 'get_my_list/'   , views.get_my_list    , name= 'get_my_list'      ),
