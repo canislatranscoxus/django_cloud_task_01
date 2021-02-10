@@ -26,19 +26,11 @@ class Qmessenger:
 
     def add_gae( self, payload ):
         '''params is a dictionary '''
-
-        print( 'Qmessenger.add_gae(), ... begin' )
-        print( 'payload type: {}'.format( type( payload ) ) )
-        print( 'payload : {}'.format( json.dumps( payload, indent= 4 ) ) )
-
         relative_uri = '/handler_animal/'
         if 'url' in payload:
             relative_uri = payload[ 'url' ]
 
-        print( 'Qmessenger.add_gae()....' )
-
         # Construct the request body.
-
         task = {
             #'view'          : tasks.Task.View.FULL ,
             #'response_view' : tasks.Task.View.FULL ,
@@ -67,9 +59,9 @@ class Qmessenger:
 
         # Use the client to build and send the task.
         response = self.client.create_task( parent = self.parent, task=task )
-        print('Created task: {}'.format( response.name ))
+        print( 'Created task: {}'.format( response.name ))
         print( 'short name: {}'.format( response.name.split( '/' )[-1]  ) )
-        print('task view: {}'.format( response.view ))
+        print( 'task view: {}'.format( response.view ))
         
 
 

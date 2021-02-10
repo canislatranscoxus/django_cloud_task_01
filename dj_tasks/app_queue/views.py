@@ -58,8 +58,8 @@ def task_sent_ok( request ):
 class Handler_animal( APIView ):
     authentication_classes  = ( BasicAuthentication, )
 
-    #permission_classes      = ( AllowAny,)
-    permission_classes      = ( IsAuthenticated, IsAdminUser )
+    permission_classes      = ( AllowAny,)
+    #permission_classes      = ( IsAuthenticated, IsAdminUser )
 
 
     parser_classes          = [JSONParser]
@@ -71,6 +71,13 @@ class Handler_animal( APIView ):
             
             print( 'app_queue.views.Handler_animal.post() ... begin' )
             GCS.upload_blob_from_string( self.bucket_name, 'Handler_animal loaded', 'handler_animal.txt' )
+
+            print( 'header...' )
+            s = json.dumps( request.headers, indent= 4 )
+            print( s )
+            print( 'META' )
+            s = json.dumps( request.headers, indent= 4 )
+            print( s )
 
             print( 'getting body' )
             b = request.body
