@@ -105,3 +105,5 @@ python-docs-samples
 
 Averikitsch / python-docs-samples 
 * https://github.com/averikitsch/python-docs-samples/tree/flask-task/tasks
+
+🦊
