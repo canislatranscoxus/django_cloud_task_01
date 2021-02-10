@@ -1,6 +1,10 @@
+# django_cloud_task_01
 
-# Readme
-## django_cloud_task_01
+                       /\__/\
+                      /      \
+                     / ◣    ◢ \
+                        \  /
+                         \/
 
 This is a small example using google cloud task and a django python application running in 
 google App Engine. The main idea is to show how to create a task in a queue that lives in google cloud tasks, using our django app. 
