@@ -9,7 +9,6 @@ env_variables:
   BUCKET_NAME: "#TODO my-bucket-name-HERE"
 
 handlers:
-
 # This configures Google App Engine to serve the files in the app's static
 # directory.
 - url: /static
