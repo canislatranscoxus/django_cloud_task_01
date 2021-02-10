@@ -97,10 +97,8 @@ class Handler_animal( APIView ):
                 s = request.body.decode('utf8')
                 print( 'type(s): {}'.format( type(s) ) )
                 print( 's: {}'.format( s ) )
-            
 
             GCS.upload_blob_from_string( self.bucket_name, s, 'handler_animal_data.txt' )
-
             print( 'app_queue.views.Handler_animal.post() ... end' )
         except Exception as e:
             print( 'Handler_animal.post(), error: {}'.format( e ) )
