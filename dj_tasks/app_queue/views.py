@@ -10,7 +10,7 @@ from rest_framework.parsers         import JSONParser
 from rest_framework.views           import APIView
 from rest_framework.response        import Response
 from rest_framework.authentication  import BasicAuthentication
-from rest_framework.permissions     import AllowAny, IsAuthenticated, IsAdminUser
+from rest_framework.permissions     import AllowAny
 
 from . import forms
 from app_queue.Qmessenger import Qmessenger
@@ -59,8 +59,6 @@ class Handler_animal( APIView ):
     authentication_classes  = ( BasicAuthentication, )
 
     permission_classes      = ( AllowAny,)
-    #permission_classes      = ( IsAuthenticated, IsAdminUser )
-
 
     parser_classes          = [JSONParser]
     bucket_name             = settings.BUCKET_NAME

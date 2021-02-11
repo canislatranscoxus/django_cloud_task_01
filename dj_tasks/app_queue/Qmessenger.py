@@ -59,9 +59,9 @@ class Qmessenger:
 
         # Use the client to build and send the task.
         response = self.client.create_task( parent = self.parent, task=task )
-        #print( 'Created task: {}'.format( response.name ))
-        #print( 'short name: {}'.format( response.name.split( '/' )[-1]  ) )
-        #print( 'task view: {}'.format( response.view ))
+        print( 'Created task: {}'.format( response.name ))
+        print( 'short name: {}'.format( response.name.split( '/' )[-1]  ) )
+        print( 'task view: {}'.format( response.view ))
         
 
 
