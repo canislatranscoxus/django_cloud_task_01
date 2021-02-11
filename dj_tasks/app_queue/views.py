@@ -70,7 +70,11 @@ class Handler_animal( APIView ):
             print( 'app_queue.views.Handler_animal.post() ... begin' )
             GCS.upload_blob_from_string( self.bucket_name, 'Handler_animal loaded', 'handler_animal.txt' )
 
-            print( 'header...' )
+            print( 'request attributes: \n {}'.format( dir( request ) ) )
+
+
+            print( 'type( headers) : {}'.format( type( headers) ) )
+
             s = json.dumps( request.headers, indent= 4 )
             print( s )
             print( 'META' )
