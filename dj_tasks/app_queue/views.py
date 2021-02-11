@@ -13,9 +13,9 @@ from rest_framework.authentication  import BasicAuthentication
 from rest_framework.permissions     import AllowAny
 
 from . import forms
-from app_queue.Qmessenger import Qmessenger
-from app_queue.GCS        import GCS
-
+from app_queue.Qmessenger           import Qmessenger
+from app_queue.GCS                  import GCS
+from app_queue.Ctrd                 import Ctrd
 
 
 # Create your views here.
@@ -70,6 +70,11 @@ class Handler_animal( APIView ):
             print( 'app_queue.views.Handler_animal.post() ... begin' )
             GCS.upload_blob_from_string( self.bucket_name, 'Handler_animal loaded', 'handler_animal.txt' )
 
+            if Ctrd.is_from_cloud_tasks( request, settings.QUEUE_NAME ):
+                print( 'this reuest is from 🔒 Google Cloud Tasks from our queue 🛡️' )
+            else:
+                print( 'this is a bad reuest' )
+
             print( 'request attributes: \n {}'.format( dir( request ) ) )
 
             print( 'searching gae_headers ...' )
@@ -85,7 +90,6 @@ class Handler_animal( APIView ):
                 try:
                     if i in request.META:
                         print( "[{}] = '{}'".format( i, request.META[ i ] ) )
-                        print( request.META[ i ] )
                 except Exception as e:
                     print( 'error searching {}'.format( i ) )
 
