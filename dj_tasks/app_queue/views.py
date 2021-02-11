@@ -75,7 +75,8 @@ class Handler_animal( APIView ):
             print( 'searching gae_headers ...' )
             gae_headers = [ 'X-AppEngine-QueueName'
             , 'X-AppEngine-TaskName'
-            , 'X-AppEngine-TaskRetryCount' ]
+            , 'X-AppEngine-TaskRetryCount'
+            , 'User-Agent' ] #AppEngine-Google; (+http://code.google.com/appengine)
 
             for i in gae_headers:
                 try:
