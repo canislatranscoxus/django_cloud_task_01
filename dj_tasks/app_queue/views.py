@@ -72,13 +72,23 @@ class Handler_animal( APIView ):
 
             print( 'request attributes: \n {}'.format( dir( request ) ) )
 
+            print( 'searching gae_headers ...' )
+            gae_headers = [ 'X-AppEngine-QueueName'
+            , 'X-AppEngine-TaskName'
+            , 'X-AppEngine-TaskRetryCount' ]
 
-            print( 'type( HEADERS) : {}'.format( type( request.HEADERS) ) )
+            for i in gae_headers:
+                try:
+                    if i in request:
+                        print( 'request has header: {}'.format(i) )
+                        print( request[ i ] )
+                except Exception as e:
+                    print( 'error searching {}'.format( i ) )
 
-            s = json.dumps( request.HEADERS, indent= 4 )
-            print( s )
+
+
             print( 'META' )
-            s = json.dumps( request.headers, indent= 4 )
+            s = json.dumps( request.META, indent= 4 )
             print( s )
 
             print( 'getting body' )
