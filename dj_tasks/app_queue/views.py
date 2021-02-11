@@ -73,7 +73,7 @@ class Handler_animal( APIView ):
             if Ctrd.is_from_cloud_tasks( request, settings.QUEUE_NAME ):
                 print( 'this reuest is from 🔒 Google Cloud Tasks from our queue 🛡️' )
             else:
-                print( 'this is a bad reuest' )
+                print( '🚨 this is a  bad reuest ☠️ ☣️ ⚠️  ' )
 
             print( 'request attributes: \n {}'.format( dir( request ) ) )
 
