@@ -86,12 +86,8 @@ class Handler_animal( APIView ):
                 except Exception as e:
                     print( 'error searching {}'.format( i ) )
 
-
-
             print( 'META' )
             print( request.META )
-
-
 
             print( 'getting body' )
             b = request.body
