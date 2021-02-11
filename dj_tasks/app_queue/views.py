@@ -73,9 +73,9 @@ class Handler_animal( APIView ):
             print( 'request attributes: \n {}'.format( dir( request ) ) )
 
 
-            print( 'type( headers) : {}'.format( type( headers) ) )
+            print( 'type( HEADERS) : {}'.format( type( request.HEADERS) ) )
 
-            s = json.dumps( request.headers, indent= 4 )
+            s = json.dumps( request.HEADERS, indent= 4 )
             print( s )
             print( 'META' )
             s = json.dumps( request.headers, indent= 4 )
