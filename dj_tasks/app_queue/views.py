@@ -80,17 +80,18 @@ class Handler_animal( APIView ):
 
             for i in gae_headers:
                 try:
-                    if i in request:
+                    if i in request.META:
                         print( 'request has header: {}'.format(i) )
-                        print( request[ i ] )
+                        print( request.META[ i ] )
                 except Exception as e:
                     print( 'error searching {}'.format( i ) )
 
 
 
             print( 'META' )
-            s = json.dumps( request.META, indent= 4 )
-            print( s )
+            print( request.META )
+
+
 
             print( 'getting body' )
             b = request.body
