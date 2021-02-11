@@ -73,15 +73,18 @@ class Handler_animal( APIView ):
             print( 'request attributes: \n {}'.format( dir( request ) ) )
 
             print( 'searching gae_headers ...' )
-            gae_headers = [ 'X-AppEngine-QueueName'
-            , 'X-AppEngine-TaskName'
-            , 'X-AppEngine-TaskRetryCount'
-            , 'User-Agent' ] #AppEngine-Google; (+http://code.google.com/appengine)
+            gae_headers = [ 
+                'HTTP_X_APPENGINE_QUEUENAME', 
+                'HTTP_X_APPENGINE_TASKNAME', 
+                'HTTP_X_APPENGINE_TASKRETRYCOUNT', 
+                'HTTP_X_APPENGINE_TASKEXECUTIONCOUNT', 
+                'HTTP_USER_AGENT' # 'AppEngine-Google; (+http://code.google.com/appengine)'
+            ] #AppEngine-Google; (+http://code.google.com/appengine)
 
             for i in gae_headers:
                 try:
                     if i in request.META:
-                        print( 'request has header: {}'.format(i) )
+                        print( "[{}] = '{}'".format( i, request.META[ i ] ) )
                         print( request.META[ i ] )
                 except Exception as e:
                     print( 'error searching {}'.format( i ) )
