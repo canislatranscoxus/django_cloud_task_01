@@ -2,6 +2,10 @@
 Description: This class represent the Cloud Tasks Request Defense.
              Here we can see if the request is from Google Cloud Task,
              and if the Queue belongs to our project.
+
+references:
+    https://cloud.google.com/tasks/docs/reference/rest/v2/projects.locations.queues.tasks
+
 '''
 
 class Ctrd:
@@ -30,11 +34,30 @@ class Ctrd:
                 if header not in request.META:
                     return False 
 
-            if request.META[ 'HTTP_USER_AGENT' ] == 'AppEngine-Google; (+http://code.google.com/appengine)' \
-                and 'HTTP_X_APPENGINE_QUEUENAME' == queue_name:
+            if request.META[ 'HTTP_USER_AGENT'            ] == 'AppEngine-Google; (+http://code.google.com/appengine)' and  \
+               request.META[ 'HTTP_X_APPENGINE_QUEUENAME' ] == queue_name:
                 return True
 
         except Exception as e:
             print( 'Ctrd.is_from_cloud_tasks(), error: {}'.format( e ) )
         
         return False
+
+    @staticmethod
+    def get_payload( request ):
+        '''By default Cloud Tasks store the body Content-Type as "application/octet-stream".
+        '''
+
+        payload = None
+        try:
+            if isinstance(request.body, dict):
+                payload = request.body
+            else:
+                # decoding body from bytes to string to json' )
+                s = request.body.decode('utf8').replace("'", '"')
+                payload = json.loads( s )
+
+        except Exception as e:
+            print( 'Ctrd.get_payload(), error: {}'.format( e ) )
+
+        return payload
